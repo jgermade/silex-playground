@@ -1,0 +1,16 @@
+{
+    "name": "joshua/push",
+    "authors": [
+        {
+            "name": "Jesús Germade",
+            "email": "jesus@germade.es"
+        }
+    ],
+    "require": {
+        "pusher/pusher-php-server": "~2.2",
+        "silex/silex": "~1.2",
+        "league/plates": "~3.1",
+        "swiftmailer/swiftmailer": "~5.4",
+        "league/commonmark": "0.7.*"
+    }
+}
