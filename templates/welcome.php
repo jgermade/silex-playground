@@ -1,0 +1,1 @@
+<?php $this->layout('base-layout', ['title' => 'Playground']) ?>

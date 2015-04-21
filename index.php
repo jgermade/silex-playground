@@ -7,8 +7,9 @@
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpFoundation\JsonResponse;
     use League\CommonMark\CommonMarkConverter;
-
-    $settings = json_decode( file_get_contents(__DIR__."/config.json") );
+    use Symfony\Component\Yaml\Yaml;
+    
+    $settings = Yaml::parse( file_get_contents(__DIR__."/config.yml") );
 
     $pusher = new Pusher( $settings->pusher->app_key, $settings->pusher->app_secret, $settings->pusher->app_id, [
         'host' => $settings->pusher->host,
@@ -19,18 +20,22 @@
 
 
     $app = new Silex\Application();
-
+    
     $app->get('/', function(Request $request) use ($templates) {
+        return new Response( $templates->render('welcome') , 201);
+    });
+
+    $app->get('/push', function(Request $request) use ($templates) {
         $params = [
           channel => 'test',
           event => 'echo',
           message => '{ "hi": "all" }'
         ];
 
-        return new Response( $templates->render('form', $params) , 200);
+        return new Response( $templates->render('push', $params) , 200);
     });
 
-    $app->post('/', function(Request $request) use ($pusher, $templates) {
+    $app->post('/push', function(Request $request) use ($pusher, $templates) {
 
         $params = [
           channel => $request->get('channel'),
@@ -47,7 +52,7 @@
 
         $pusher->trigger( $params['channel'], $params['event'], $parsedMessage );
 
-        return new Response( $templates->render('form', $params) , 201);
+        return new Response( $templates->render('push', $params) , 201);
     });
 
     $app->post('/pusher/auth', function(Request $request) use ($pusher) {
@@ -97,10 +102,9 @@
         ];
 
         // Create the Transport
-        $transport = Swift_SmtpTransport::newInstance('localhost', 1025)
+        $transport = Swift_SmtpTransport::newInstance('localhost', 1025);
           // ->setUsername('your username')
           // ->setPassword('your password')
-          ;
 
         // Create the Mailer using your created Transport
         $mailer = Swift_Mailer::newInstance($transport);

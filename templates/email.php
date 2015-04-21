@@ -1,6 +1,6 @@
-<?php $this->layout('base-layout', ['title' => 'Email Form']) ?>
+<?php $this->layout('base-layout', ['title' => 'Email']) ?>
 
-<form class="form-horizontal" method="POST">
+<form class="" method="POST">
     <div class="form-group">
       <label>To</label>
       <input class="form-control" type="text" name="to" placeholder="to" value="<?= $this->e($to) ?>" />

@@ -1,6 +1,6 @@
-<?php $this->layout('base-layout', ['title' => 'Push Form']) ?>
+<?php $this->layout('base-layout', ['title' => 'Push']) ?>
 
-<form class="form-horizontal" method="POST">
+<form class="" method="POST">
     <div class="form-group">
       <label>Channel</label>
       <input class="form-control" type="text" name="channel" placeholder="channel" value="<?= $this->e($channel) ?>" />
