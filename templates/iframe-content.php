@@ -24,7 +24,7 @@
     	(function () {
     	
     		$('[data-result]').click(function (e) {
-    			parent.postMessage('result:' + $(this).data('result'), '*');
+    			parent.postMessage({ result: $(this).data('result') }, '*');
     		});
     	
     		

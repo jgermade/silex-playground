@@ -15,8 +15,7 @@
 	</script>
     <script type="text/javascript" >
     	function receiveMessage(event){
-    		var resultMatch = event.data.match(/^result\:(.*)/),
-    			result = resultMatch && resultMatch[1];
+    		var result = event.data && event.data.result;
     	
 			if( result ){
 				$('#iframe-wrapper').html('Result: <strong>' + result + '</strong>');
