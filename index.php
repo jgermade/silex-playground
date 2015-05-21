@@ -5,6 +5,7 @@
 
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpFoundation\RedirectResponse;
     use Symfony\Component\HttpFoundation\JsonResponse;
     use League\CommonMark\CommonMarkConverter;
     use Symfony\Component\Yaml\Yaml;
@@ -121,6 +122,22 @@
         $result = $mailer->send($message);
 
         return new Response( $templates->render('email', $params) , 201);
+    });
+    
+    $app->get('/redirect', function(Request $request) use ($templates) {
+        return new RedirectResponse( '/push', 307 );
+    });
+    
+    $app->post('/redirect', function(Request $request) use ($templates) {
+        return new RedirectResponse( '/push', 307 );
+    });
+    
+    $app->get('/iframe', function(Request $request) use ($templates) {
+        return new Response( $templates->render('iframe') , 200);
+    });
+    
+    $app->get('/iframe-content', function(Request $request) use ($templates) {
+        return new Response( $templates->render('iframe-content') , 200);
     });
 
     $app->run();
